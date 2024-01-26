@@ -18,7 +18,7 @@ jobs:
         uses: githubocto/flat@v2
         with:
           http_url: https://lobste.rs/newest.json
-          downloaded_filename: newest2.json
+          downloaded_filename: newest.json
       - name: Neo4j import
         uses: johnymontana/flat-graph@v1.2
         with:
