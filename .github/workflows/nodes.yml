@@ -25,5 +25,5 @@ jobs:
             SET a.name = v.name, a.created = v.created_at
             FOREACH (c IN v.children |
             MERGE (child:Node {id: c})
-            MERGE (child)-[:IS_CHILD_OF]-(v)
-)
+            MERGE (child)-[:IS_CHILD_OF]-(v))
+            RETURN *
