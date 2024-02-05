@@ -25,4 +25,3 @@ jobs:
             UNWIND $value AS v    
             MERGE (a:Node {id: v.id})
             SET a.name = v.name, a.created = v.created_at
-            WITH v, a
