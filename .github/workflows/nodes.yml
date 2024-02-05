@@ -25,6 +25,4 @@ jobs:
             UNWIND $value AS v    
             MERGE (a:Node {id: v.id})
             SET a.name = v.name, a.created = v.created_at
-            FOREACH (c IN v.children |
-            MERGE (child:Node {id: c})
-            MERGE (child)-[:IS_CHILD_OF]-(v))
+            WITH v, a
