@@ -1,4 +1,4 @@
-name: Lobstersss Data Import
+name: Node Data Import
 
 on:
   push:
