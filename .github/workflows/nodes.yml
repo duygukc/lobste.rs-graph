@@ -22,9 +22,9 @@ jobs:
           neo4j-uri: ${{secrets.NEO4J_URI}}
           filename: nodes.json
           cypher-query: >
-            UNWIND $value AS v    
-            MERGE (a:Node {id: v.id})
-            SET a.name = v.name, a.created = v.created_at
-            FOREACH (c IN v.children |
-            MERGE (child:Node {id: c})
-            MERGE (child)-[:IS_CHILD_OF]-(c))
+            UNWIND $jsonArray AS nodeData    
+            MERGE (n:Node {id: nodeData.id})
+            SET n.name = nodeData.name, n.created = nodeData.created_at
+            FOREACH (childId IN nodeData.children |
+            MERGE (c:Node {id: childId})
+            MERGE (n)-[:HAS_CHILD]-(c))
