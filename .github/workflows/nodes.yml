@@ -1,1 +1,29 @@
+name: Nodes Data Import
 
+on:
+  push:
+    paths:
+      - .github/workflows/nodes.yml
+  workflow_dispatch:
+  schedule:
+    - cron: '*/60 * * * *'
+
+jobs:
+  scheduled:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Neo4j import
+        uses: johnymontana/flat-graph@v1.2
+        with:
+          neo4j-user: ${{secrets.NEO4J_USER}}
+          neo4j-password: ${{secrets.NEO4J_PASSWORD}}
+          neo4j-uri: ${{secrets.NEO4J_URI}}
+          filename: nodes.json
+          cypher-query: >
+            UNWIND $value AS v    
+            MERGE (a:Node {id: v.id})
+            SET a.name = v.name, a.created = v.created_at
+            FOREACH (c IN v.children |
+            MERGE (child:Node {id: c})
+            MERGE (child)-[:IS_CHILD_OF]-(v)
+)
