@@ -23,8 +23,8 @@ jobs:
           filename: nodes.json
           cypher-query: >
             UNWIND $value AS nodeData    
-            MERGE (n:Node {id: nodeData.id})
+            MERGE (n:NetworkNode {id: nodeData.id})
             SET n.name = nodeData.name, n.created = nodeData.created_at
             FOREACH (childId IN nodeData.children |
-            MERGE (c:Node {id: childId})
+            MERGE (c:NetworkNode {id: childId})
             MERGE (n)-[:HAS_CHILD]-(c))
