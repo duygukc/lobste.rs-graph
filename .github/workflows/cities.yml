@@ -25,4 +25,4 @@ jobs:
           cypher-query: >
             UNWIND $value AS cityData    
             MERGE (n:City {id: cityData.id})
-            SET n.name = cityData.name, n.lat = cityData.lat, n.lng = cityData.lng
+            SET n.name = cityData.name, n.lat = toFloat(cityData.lat), n.lng = toFloat(cityData.lng)
